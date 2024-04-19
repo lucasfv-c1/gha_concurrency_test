@@ -1,0 +1,15 @@
+name: Fake action that simulates a deploy
+
+on:
+    workflow_dispatch:
+
+jobs:
+    deploy-stage:
+        name: Deploy changes to stage
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploy
+              run: |
+                  echo "Deploying to stage..."
+                  sleep 2m
+                  echo "Deploy completed"
