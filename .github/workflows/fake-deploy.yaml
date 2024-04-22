@@ -3,6 +3,9 @@ name: Fake action that simulates a deploy
 on:
     workflow_dispatch:
 
+concurrency:
+    group: stage-deploy
+
 jobs:
     deploy-stage:
         name: Deploy changes to stage
