@@ -1,0 +1,18 @@
+name: Fake action that simulates destroying an environment
+
+on:
+    workflow_dispatch:
+
+concurrency:
+    group: stage-deploy
+
+jobs:
+    destroy-stage:
+        name: Destroys an environment
+        runs-on: ubuntu-latest
+        steps:
+            - name: Destroy
+              run: |
+                  echo "Destroying environment to stage..."
+                  sleep 0.5m
+                  echo "Resources destroyed"
