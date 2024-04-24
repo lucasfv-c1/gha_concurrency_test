@@ -12,12 +12,30 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
+    init-stage:
+        name: Initializing infra
+        runs-on: ubuntu-latest
+        outputs:
+            output1: ${{steps.save-name.outputs.ACTION_NAME}}
+        steps:
+            - name: Initialize Infra
+              run: |
+                  echo "Initializing infra..."
+                  sleep .25m
+                  echo "Infra completed"
+            - name: Save name
+              id: save-name
+              run: echo "ACTION_NAME=radamantis" >> "$GITHUB_OUTPUT"
+
     deploy-stage:
         name: Deploy changes to stage
         runs-on: ubuntu-latest
+        needs: init-stage
         steps:
             - name: Deploy
+              env:
+                  NAME: ${{needs.init-stage.outputs.output1}}
               run: |
-                  echo "Deploying to stage..."
-                  sleep 2m
+                  echo "Deploying to stage $NAME"
+                  sleep 0.5m
                   echo "Deploy completed"
