@@ -7,14 +7,16 @@ on:
                 type: number
                 required: true
 
-concurrency:
-    group: stage-deploy-${{github.event.inputs.num}}
-    cancel-in-progress: true
+# concurrency:
+#     group: stage-deploy-${{github.event.inputs.num}}
+#     cancel-in-progress: true
 
 jobs:
     init-stage:
         name: Initializing infra
         runs-on: ubuntu-latest
+        concurrency:
+            group: stage-deploy-${{github.event.inputs.num}}
         outputs:
             output1: ${{steps.save-name.outputs.ACTION_NAME}}
         steps:
@@ -31,6 +33,9 @@ jobs:
         name: Deploy changes to stage
         runs-on: ubuntu-latest
         needs: init-stage
+        concurrency:
+            group: stage-deploy-${{github.event.inputs.num}}
+            cancel-in-progress: true
         steps:
             - name: Deploy
               env:
