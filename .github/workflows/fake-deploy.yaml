@@ -2,9 +2,13 @@ name: Fake action that simulates a deploy
 
 on:
     workflow_dispatch:
+        inputs:
+            num:
+                type: number
+                required: true
 
 concurrency:
-    group: stage-deploy
+    group: stage-deploy-${{github.event.inputs.num}}
     cancel-in-progress: true
 
 jobs:
