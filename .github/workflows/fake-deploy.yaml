@@ -16,7 +16,7 @@ jobs:
         name: Initializing infra
         runs-on: ubuntu-latest
         concurrency:
-            group: stage-deploy-${{github.event.inputs.num}}
+            group: stage-infra-${{github.event.inputs.num}}
         outputs:
             output1: ${{steps.save-name.outputs.ACTION_NAME}}
         steps:
@@ -35,7 +35,6 @@ jobs:
         needs: init-stage
         concurrency:
             group: stage-deploy-${{github.event.inputs.num}}
-            cancel-in-progress: true
         steps:
             - name: Deploy
               env:

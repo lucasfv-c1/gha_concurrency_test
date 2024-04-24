@@ -8,13 +8,15 @@ on:
                 required: true
 
 concurrency:
-    group: stage-deploy-${{github.event.inputs.num}}
-    cancel-in-progress: true
+    group: stage-infra-${{github.event.inputs.num}}
 
 jobs:
     destroy-stage:
         name: Destroys an environment
         runs-on: ubuntu-latest
+        concurrency:
+            group: stage-deploy-${{github.event.inputs.num}}
+            cancel-in-progress: true
         steps:
             - name: Destroy
               run: |
