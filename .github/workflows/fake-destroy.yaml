@@ -5,6 +5,7 @@ on:
 
 concurrency:
     group: stage-deploy
+    cancel-in-progress: true
 
 jobs:
     destroy-stage:
