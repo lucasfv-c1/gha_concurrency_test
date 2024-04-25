@@ -23,7 +23,7 @@ jobs:
             - name: Initialize Infra
               run: |
                   echo "Initializing infra..."
-                  sleep .25m
+                  sleep .05m
                   echo "Infra completed"
             - name: Save name
               id: save-name
@@ -41,5 +41,6 @@ jobs:
                   NAME: ${{needs.init-stage.outputs.output1}}
               run: |
                   echo "Deploying to stage $NAME"
-                  sleep 0.5m
+                  echo "Check output ${{needs.init-stage.outputs.output1}}"
+                  sleep 0.1m
                   echo "Deploy completed"
